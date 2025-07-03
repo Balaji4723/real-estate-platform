@@ -1,12 +1,12 @@
 const properties = [
   {
-    image: "images/house1.jpg",
+    image: "chennai estate.jpeg",
     title: "Modern Family Home",
     location: "Chennai, India",
     price: "₹75 Lakhs"
   },
   {
-    image: "images/house2.jpg",
+    image: "banglore.jpeg",
     title: "Luxury Apartment",
     location: "Bangalore, India",
     price: "₹1.2 Crore"

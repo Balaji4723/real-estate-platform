@@ -1,11 +1,12 @@
+<!-- ✅ REPLACE your existing index.html with this full version -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Real Estate Listings</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -15,11 +16,187 @@
 
   <div class="container py-5">
     <h2 class="mb-4 text-center">Available Properties</h2>
+
+    <!-- 🔍 Search Bar -->
+    <div class="row mb-4">
+      <div class="col-md-6 mx-auto">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search by location or type..." />
+      </div>
+    </div>
+
     <div id="property-list" class="row g-4">
-      <!-- Property cards will be injected here -->
+      <!-- Property Cards (3 static) -->
+      <div class="col-md-4 property-card" data-location="chennai" data-type="apartment">
+        <div class="card h-100">
+          <div id="carouselChennai" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="chennai1.jpeg" class="d-block w-100" alt="Chennai Property 1"/></div>
+              <div class="carousel-item"><img src="chennai2.jpeg" class="d-block w-100" alt="Chennai Property 2"/></div>
+              <div class="carousel-item"><img src="chennai3.jpeg" class="d-block w-100" alt="Chennai Property 3"/></div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselChennai" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselChennai" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Apartment in Chennai</h5>
+            <p class="card-text">2 BHK near Marina Beach. Type: Apartment</p>
+            <a href="#" class="btn btn-primary btn-sm view-details-btn" data-bs-toggle="modal" data-bs-target="#propertyModal">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 property-card" data-location="mumbai" data-type="villa">
+        <div class="card h-100">
+          <div id="carouselMumbai" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="mumbai1.jpeg" class="d-block w-100" alt="Mumbai Property 1"/></div>
+              <div class="carousel-item"><img src="mumbai2.jpeg" class="d-block w-100" alt="Mumbai Property 2"/></div>
+              <div class="carousel-item"><img src="mumbai3.jpeg" class="d-block w-100" alt="Mumbai Property 3"/></div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselMumbai" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselMumbai" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Villa in Mumbai</h5>
+            <p class="card-text">Luxury 3BHK villa in Andheri. Type: Villa</p>
+            <a href="#" class="btn btn-primary btn-sm view-details-btn" data-bs-toggle="modal" data-bs-target="#propertyModal">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 property-card" data-location="delhi" data-type="flat">
+        <div class="card h-100">
+          <div id="carouselDelhi" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="delhi 1.jpeg" class="d-block w-100" alt="Delhi Property 1"/></div>
+              <div class="carousel-item"><img src="delhi2.jpeg" class="d-block w-100" alt="Delhi Property 2"/></div>
+              <div class="carousel-item"><img src="delhi3.jpg" class="d-block w-100" alt="Delhi Property 3"/></div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselDelhi" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselDelhi" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Flat in Delhi</h5>
+            <p class="card-text">1 BHK affordable housing. Type: Flat</p>
+            <a href="#" class="btn btn-primary btn-sm view-details-btn" data-bs-toggle="modal" data-bs-target="#propertyModal">View Details</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- 🏠 Add Property Section -->
+  <hr class="my-5">
+  <h2 class="mb-4 text-center">Add a New Property</h2>
+  <form id="addPropertyForm" class="row g-3 container mb-5">
+    <div class="col-md-6">
+      <label for="location" class="form-label">Location</label>
+      <input type="text" class="form-control" id="location" required>
+    </div>
+    <div class="col-md-6">
+      <label for="type" class="form-label">Property Type</label>
+      <select class="form-select" id="type" required>
+        <option selected disabled value="">Choose...</option>
+        <option>Apartment</option>
+        <option>Villa</option>
+        <option>Flat</option>
+      </select>
+    </div>
+    <div class="col-12">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" rows="3" required></textarea>
+    </div>
+    <div class="col-12">
+      <label for="image" class="form-label">Upload Image</label>
+      <input type="file" class="form-control" id="image">
+    </div>
+    <div class="col-12 text-center">
+      <button type="submit" class="btn btn-success px-5 mt-3">Add Property</button>
+    </div>
+  </form>
+
+  <!-- 🔍 Property Details Modal -->
+  <div class="modal fade" id="propertyModal" tabindex="-1" aria-labelledby="propertyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="propertyModalLabel">Property Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img id="modalImage" src="" class="img-fluid mb-3" alt="Property Image">
+          <p id="modalDescription"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔧 JS Script Section -->
+  <script>
+    // 🔍 Search Functionality
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("keyup", function () {
+      const query = this.value.toLowerCase();
+      document.querySelectorAll(".property-card").forEach(card => {
+        const location = card.getAttribute("data-location").toLowerCase();
+        const type = card.getAttribute("data-type").toLowerCase();
+        const visible = location.includes(query) || type.includes(query);
+        card.style.display = visible ? "block" : "none";
+      });
+    });
+
+    // ➕ Add Property Dynamically
+    const form = document.getElementById("addPropertyForm");
+    const propertyList = document.getElementById("property-list");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const location = document.getElementById("location").value;
+      const type = document.getElementById("type").value;
+      const desc = document.getElementById("description").value;
+      const imageFile = document.getElementById("image").files[0];
+
+      let imageURL = "images/default.jpg";
+      if (imageFile) {
+        imageURL = URL.createObjectURL(imageFile);
+      }
+
+      const newCard = document.createElement("div");
+      newCard.className = "col-md-4 property-card";
+      newCard.setAttribute("data-location", location.toLowerCase());
+      newCard.setAttribute("data-type", type.toLowerCase());
+
+      newCard.innerHTML = `
+        <div class="card h-100">
+          <img src="${imageURL}" class="card-img-top" alt="${type} in ${location}">
+          <div class="card-body">
+            <h5 class="card-title">${type} in ${location}</h5>
+            <p class="card-text">${desc}</p>
+            <a href="#" class="btn btn-primary btn-sm view-details-btn" data-bs-toggle="modal" data-bs-target="#propertyModal">View Details</a>
+          </div>
+        </div>
+      `;
+
+      propertyList.appendChild(newCard);
+      alert("✅ Property added successfully!");
+      form.reset();
+    });
+
+    // 📋 Modal View Details Logic
+    document.addEventListener("click", function (e) {
+      if (e.target.classList.contains("view-details-btn")) {
+        const card = e.target.closest(".card");
+        const imgSrc = card.querySelector("img").getAttribute("src");
+        const description = card.querySelector(".card-text").innerText;
+
+        document.getElementById("modalImage").src = imgSrc;
+        document.getElementById("modalDescription").innerText = description;
+      }
+    });
+  </script>
+
+  <!-- ✅ Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
