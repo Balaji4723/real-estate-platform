@@ -1,47 +1,8 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
-  scroll-behavior: smooth;
-}
-
-.project-card {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-}
-
-.project-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.navbar .nav-link:hover {
-  text-decoration: underline;
-}
-.profile-pic {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #007bff;
-}
-body {
-  font-family: 'Segoe UI', sans-serif;
-  scroll-behavior: smooth;
-}
-
-.profile-pic {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #007bff;
+  background-color: #f8f9fa;
 }
 
 .card img {
-  max-height: 200px;
+  height: 200px;
   object-fit: cover;
-}
-
-.navbar .nav-link:hover {
-  text-decoration: underline;
 }
