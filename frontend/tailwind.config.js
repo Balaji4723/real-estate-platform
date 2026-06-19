@@ -1,25 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class",
-  content: ["./index.html", "./src/**/*.{js,jsx}"],
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        paper: {
-          DEFAULT: "#EFEDE4",
-          dark: "#E3E0D2",
-        },
+        paper: { DEFAULT: "#EFEDE4", dark: "#E3E0D2" },
         ink: "#23262B",
-        navy: {
-          DEFAULT: "#16263E",
-          light: "#1F3252",
-          deep: "#0E1A2C",
-        },
+        navy: { DEFAULT: "#16263E", light: "#1F3252", deep: "#0E1A2C" },
         chalk: "#8FB8DA",
-        brass: {
-          DEFAULT: "#B6883B",
-          light: "#C89B52",
-        },
+        brass: { DEFAULT: "#B6883B", light: "#C89B52" },
         moss: "#3F7D58",
         clay: "#A2462D",
       },
@@ -34,9 +24,7 @@ export default {
         "paper-grid":
           "linear-gradient(rgba(35,38,43,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(35,38,43,0.06) 1px, transparent 1px)",
       },
-      backgroundSize: {
-        grid: "28px 28px",
-      },
+      backgroundSize: { grid: "28px 28px" },
       keyframes: {
         "fade-up": {
           "0%": { opacity: 0, transform: "translateY(14px)" },
@@ -54,4 +42,15 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+    "bg-paper",
+    "bg-navy-deep",
+    "text-ink",
+    "text-paper",
+    "bg-navy",
+    "bg-navy-light",
+    "border-chalk",
+    "border-ink",
+    "dark",
+  ],
 };
