@@ -21,21 +21,23 @@ function parsePriceBand(band) {
 }
 
 function AppContent() {
-  const [mode, setMode] = useState(() => {
-    if (typeof window === "undefined") return "paper";
-    return window.localStorage.getItem("sitemap-mode") || "paper";
-  });
+ const [mode, setMode] = useState(() => {
+  if (typeof window === "undefined") return "paper";
+  const saved = window.localStorage.getItem("sitemap-mode");
+  return saved || "paper";
+});
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (mode === "blueprint") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-    window.localStorage.setItem("sitemap-mode", mode);
-  }, [mode]);
-
+  const root = document.documentElement;
+  if (mode === "blueprint") {
+    root.classList.add("dark");
+    root.classList.remove("light");
+  } else {
+    root.classList.remove("dark");
+    root.classList.add("light");
+  }
+  window.localStorage.setItem("sitemap-mode", mode);
+}, [mode]);
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
   const [type, setType] = useState("");

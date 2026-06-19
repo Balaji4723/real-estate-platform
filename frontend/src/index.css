@@ -15,6 +15,10 @@
     @apply bg-navy-deep text-paper;
   }
 
+  html:not(.dark) body {
+    @apply bg-paper text-ink;
+  }
+
   ::selection {
     @apply bg-brass/30;
   }
