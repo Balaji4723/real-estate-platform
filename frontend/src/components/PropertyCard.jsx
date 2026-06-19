@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, BedDouble, Bath, Ruler, MapPin } from "lucide-react";
 import { formatINR, formatArea } from "../lib/format.js";
 
 function ImageCarousel({ images, title }) {
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (images.length <= 1 || paused) return;
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % images.length);
+    }, 2500);
+    return () => clearInterval(timer);
+  }, [images.length, paused]);
 
   function go(delta, e) {
     e.stopPropagation();
@@ -20,7 +29,11 @@ function ImageCarousel({ images, title }) {
   }
 
   return (
-    <div className="relative aspect-[4/3] overflow-hidden crop-marks bg-ink/5">
+   <div
+  className="relative aspect-[4/3] overflow-hidden crop-marks bg-ink/5"
+  onMouseEnter={() => setPaused(true)}
+  onMouseLeave={() => setPaused(false)}
+>
       <AnimatePresence mode="wait">
         <motion.img
           key={images[index]}
