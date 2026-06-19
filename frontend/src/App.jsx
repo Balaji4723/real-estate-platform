@@ -77,8 +77,8 @@ function AppContent() {
     refetch();
   }
 
-  return (
-    <div className="min-h-screen flex flex-col">
+return (
+  <div key={mode} className="min-h-screen flex flex-col">
       <Navbar mode={mode} onToggleMode={() => setMode((m) => (m === "paper" ? "blueprint" : "paper"))} />
       <Hero />
 
