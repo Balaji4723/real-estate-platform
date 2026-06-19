@@ -79,10 +79,11 @@ const seedProperties = [
 async function seed() {
   const result = await db.execute("SELECT COUNT(*) AS count FROM properties");
   const count = result.rows[0].count;
-  if (count > 0) {
-    console.log(`Database already has ${count} properties — skipping seed.`);
-    return;
-  }
+if (count > 0) {
+  await db.execute("DELETE FROM property_images");
+  await db.execute("DELETE FROM properties");
+  console.log("Cleared old seed data, reseeding...");
+}
 
   for (const item of seedProperties) {
     const { images, ...fields } = item;
