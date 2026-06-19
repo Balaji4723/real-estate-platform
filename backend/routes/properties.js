@@ -119,7 +119,7 @@ router.delete("/:id", async (req, res) => {
     await db.execute({ sql: "DELETE FROM properties WHERE id = ?", args: [id] });
 
     images.forEach((image_path) => {
-      if (image_path.startsWith("/uploads/") && !image_path.startsWith("/uploads/seed/")) {
+      if (image_path.startsWith("/uploads/") && !image_path.includes("raw.githubusercontent.com")) {
         const filePath = path.join(uploadsDir, image_path.replace("/uploads/", ""));
         fs.unlink(filePath, () => {});
       }

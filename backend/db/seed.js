@@ -10,7 +10,11 @@ const seedProperties = [
     bedrooms: 2, bathrooms: 2, area_sqft: 1100,
     description: "A breezy 2BHK just five minutes walk from Marina Beach. Recently repainted, with a balcony that catches the sea air every evening.",
     status: "Available",
-    images: ["seed/chennai-1.jpg", "seed/chennai-2.jpg", "seed/chennai-3.jpg"],
+   images: [
+  "https://raw.githubusercontent.com/Balaji4723/real-estate-platform/master/backend/uploads/seed/chennai-1.jpg",
+  "https://raw.githubusercontent.com/Balaji4723/real-estate-platform/master/backend/uploads/seed/chennai-2.jpg",
+  "https://raw.githubusercontent.com/Balaji4723/real-estate-platform/master/backend/uploads/seed/chennai-3.jpg",
+],
   },
   {
     title: "Andheri Hills Villa",
@@ -21,7 +25,12 @@ const seedProperties = [
     bedrooms: 3, bathrooms: 3, area_sqft: 2400,
     description: "Luxury 3BHK villa tucked into the Andheri hills with a private garden and double-height living room.",
     status: "Available",
-    images: ["seed/mumbai-1.jpg", "seed/mumbai-2.jpg", "seed/mumbai-3.jpg"],
+    images: [
+  "https://raw.githubusercontent.com/Balaji4723/real-estate-platform/master/backend/uploads/seed/mumbai-1.jpg",
+  "https://raw.githubusercontent.com/Balaji4723/real-estate-platform/master/backend/uploads/seed/mumbai-2.jpg",
+  "https://raw.githubusercontent.com/Balaji4723/real-estate-platform/master/backend/uploads/seed/mumbai-3.jpg",
+],
+
   },
   {
     title: "Affordable Flat in Dwarka",
@@ -32,7 +41,11 @@ const seedProperties = [
     bedrooms: 1, bathrooms: 1, area_sqft: 650,
     description: "A tidy 1BHK built for first-time buyers. Lift access and five minutes walk to the metro.",
     status: "Available",
-    images: ["seed/delhi-1.jpg", "seed/delhi-2.jpg", "seed/delhi-3.jpg"],
+    images: [
+  "https://raw.githubusercontent.com/Balaji4723/real-estate-platform/master/backend/uploads/seed/delhi-1.jpg",
+  "https://raw.githubusercontent.com/Balaji4723/real-estate-platform/master/backend/uploads/seed/delhi-2.jpg",
+  "https://raw.githubusercontent.com/Balaji4723/real-estate-platform/master/backend/uploads/seed/delhi-3.jpg",
+],
   },
   {
     title: "Independent House in Whitefield",
@@ -43,7 +56,10 @@ const seedProperties = [
     bedrooms: 3, bathrooms: 2, area_sqft: 1800,
     description: "Standalone house on a quiet street in Whitefield, walking distance from the tech park.",
     status: "Available",
-    images: ["seed/bangalore-1.jpg"],
+    images: [
+  "https://raw.githubusercontent.com/Balaji4723/real-estate-platform/master/backend/uploads/seed/bangalore-1.jpg",
+],
+
   },
   {
     title: "Heritage Estate, ECR",
@@ -54,7 +70,9 @@ const seedProperties = [
     bedrooms: 4, bathrooms: 4, area_sqft: 3800,
     description: "A sprawling estate on ECR with a private courtyard and uninterrupted views of the coast.",
     status: "Available",
-    images: ["seed/chennai-estate-1.jpg"],
+    images: [
+  "https://raw.githubusercontent.com/Balaji4723/real-estate-platform/master/backend/uploads/seed/chennai-estate-1.jpg",
+],
   },
 ];
 
@@ -80,7 +98,7 @@ async function seed() {
     for (let i = 0; i < images.length; i++) {
       await db.execute({
         sql: "INSERT INTO property_images (property_id, image_path, sort_order) VALUES (?, ?, ?)",
-        args: [propertyId, `/uploads/${images[i]}`, i],
+       args: [propertyId, images[i], i],
       });
     }
   }
