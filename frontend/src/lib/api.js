@@ -7,7 +7,7 @@ async function handle(response) {
       const data = await response.json();
       if (data?.error) message = data.error;
     } catch {
-      // response had no JSON body — keep the generic message
+      // no JSON body — keep generic message
     }
     throw new Error(message);
   }
@@ -47,16 +47,29 @@ export const api = {
     return handle(res);
   },
 
-  async createProperty(formData) {
+  async login(password) {
+    const res = await fetch(`${BASE}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password }),
+    });
+    return handle(res);
+  },
+
+  async createProperty(formData, token) {
     const res = await fetch(`${BASE}/properties`, {
       method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
       body: formData,
     });
     return handle(res);
   },
 
-  async deleteProperty(id) {
-    const res = await fetch(`${BASE}/properties/${id}`, { method: "DELETE" });
+  async deleteProperty(id, token) {
+    const res = await fetch(`${BASE}/properties/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return handle(res);
   },
 };

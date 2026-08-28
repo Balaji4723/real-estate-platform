@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 import { db } from "../db/index.js";
 import { upload, uploadsDir } from "../middleware/upload.js";
+import { requireAdmin } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -81,19 +82,33 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// POST /api/properties
-router.post("/", upload.array("images", 8), async (req, res) => {
+// POST /api/properties — protected
+router.post("/", requireAdmin, upload.array("images", 8), async (req, res) => {
   const { title, location, address, type, price, bedrooms, bathrooms, area_sqft, description, status } = req.body;
+
   if (!title || !location || !type || !price || !description)
     return res.status(400).json({ error: "Title, location, type, price, and description are required." });
+
+  const priceNum = Number(price);
+  if (!Number.isFinite(priceNum) || priceNum <= 0)
+    return res.status(400).json({ error: "Price must be a positive number." });
 
   try {
     const result = await db.execute({
       sql: `INSERT INTO properties (title, location, address, type, price, bedrooms, bathrooms, area_sqft, description, status)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      args: [title, location, address || "", type, Number(price),
-             Number(bedrooms) || 0, Number(bathrooms) || 0,
-             Number(area_sqft) || 0, description, status || "Available"],
+      args: [
+        String(title).slice(0, 200),
+        String(location).slice(0, 100),
+        String(address || "").slice(0, 200),
+        String(type).slice(0, 50),
+        priceNum,
+        Number(bedrooms) || 0,
+        Number(bathrooms) || 0,
+        Number(area_sqft) || 0,
+        String(description).slice(0, 2000),
+        status || "Available",
+      ],
     });
     const propertyId = result.lastInsertRowid;
     const files = req.files || [];
@@ -108,8 +123,8 @@ router.post("/", upload.array("images", 8), async (req, res) => {
   }
 });
 
-// DELETE /api/properties/:id
-router.delete("/:id", async (req, res) => {
+// DELETE /api/properties/:id — protected
+router.delete("/:id", requireAdmin, async (req, res) => {
   try {
     const id = Number(req.params.id);
     const existing = await db.execute({ sql: "SELECT * FROM properties WHERE id = ?", args: [id] });
@@ -119,7 +134,7 @@ router.delete("/:id", async (req, res) => {
     await db.execute({ sql: "DELETE FROM properties WHERE id = ?", args: [id] });
 
     images.forEach((image_path) => {
-      if (image_path.startsWith("/uploads/") && !image_path.includes("raw.githubusercontent.com")) {
+      if (image_path.startsWith("/uploads/") && !image_path.startsWith("/uploads/seed/") && !image_path.includes("raw.githubusercontent.com")) {
         const filePath = path.join(uploadsDir, image_path.replace("/uploads/", ""));
         fs.unlink(filePath, () => {});
       }
